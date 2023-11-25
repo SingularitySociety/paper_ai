@@ -17,7 +17,7 @@ const main = async () => {
     
     console.log(papers)
     const json = JSON.stringify(papers, null, 2);
-    fs.writeFileSync('tests/export.json', json);
+    fs.writeFileSync('tests/exports.json', json);
   } catch (error) {
     console.log(error);
   }

@@ -1,12 +1,15 @@
-# firebase-vue3-startup-kit
+# Paper AI
+
+- document
+  - https://docs.google.com/document/d/1NLoFBWl9KNstQJ7RQEH5sCYhRgd5JUgwMIvv3UoJtMY/edit#heading=h.qxxweqvfyfil
 
 ## Purpose
 
-This is a Start-Up kit for a Firebase web project, which uses Vue3 and firebase 9.
+ブートキャンプメンバー間での論文学習やナレッジシェアの促進
 
 ## Requirements 
 
-- Node.js version 14 or later.
+- Node.js version 18 or later.
 
 ## Instruction
 

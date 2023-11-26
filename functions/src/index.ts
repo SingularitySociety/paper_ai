@@ -1,3 +1,4 @@
+import * as admin from "firebase-admin";
 // import * as functions from "firebase-functions";
 
 import exportIfNeeded from "./common/exportifneeded";
@@ -10,4 +11,11 @@ import exportIfNeeded from "./common/exportifneeded";
 //   response.send("Hello from Firebase!");
 // });
 
-exportIfNeeded("test", "tests/test", exports);
+if (!admin.apps.length) {
+  admin.initializeApp();
+}
+
+
+// exportIfNeeded("test", "tests/test", exports);
+
+exportIfNeeded("arxiv_create_doc", "arxiv/create_doc", exports);

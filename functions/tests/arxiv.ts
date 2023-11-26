@@ -1,4 +1,4 @@
-import { search } from 'arxiv-api';
+import search from 'arxiv-api';
 import * as fs from 'fs';
  
 const main = async () => {

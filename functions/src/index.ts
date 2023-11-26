@@ -19,3 +19,4 @@ if (!admin.apps.length) {
 // exportIfNeeded("test", "tests/test", exports);
 
 exportIfNeeded("arxiv_create_doc", "arxiv/create_doc", exports);
+exportIfNeeded("cron_arxiv_search", "arxiv/search", exports);

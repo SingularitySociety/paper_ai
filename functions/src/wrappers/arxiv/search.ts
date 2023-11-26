@@ -13,7 +13,7 @@ export default functions
     memory: "1GB" as "1GB",
   })
   //  .pubsub.schedule("0 5 * * *")
-  .pubsub.schedule("0 5 * * *")
+  .pubsub.schedule("10 * * * *")
   .timeZone("Asia/Tokyo")
   .onRun(async () => {
     return await search_arxiv(db);

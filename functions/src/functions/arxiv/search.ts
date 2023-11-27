@@ -1,19 +1,9 @@
 import * as admin from "firebase-admin";
-import search from "arXiv-api";
+import { search_arxiv_papers } from "../../lib/utils";
 
 export const search_arxiv = async (db: admin.firestore.Firestore) => {
   try {
-    const papers = await search({
-      searchQueryParams: [
-        {
-          include: [{ name: "LLM" }],
-        },
-      ],
-      sortBy: "lastUpdatedDate",
-      sortOrder: "descending",
-      start: 0,
-      maxResults: 100,
-    });
+    const papers = await search_arxiv_papers();
 
     for await (const data of papers) {
       const id = data.id.replace("http://", "").replace(/\//g, "-");

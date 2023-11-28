@@ -14,7 +14,7 @@
 
 ## 仕様
 
-現在functionsのみを使っているので、[functionsのdocument](./funtions/README.md)を参照。
+現在functionsのみを使っているので、[functionsのdocument](./functions/README.md)を参照。
 
 
 

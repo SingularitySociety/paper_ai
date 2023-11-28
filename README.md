@@ -10,6 +10,15 @@
 ## Requirements 
 
 - Node.js version 18 or later.
+- Firebase
+
+## 仕様
+
+現在functionsのみを使っているので、[functionsのdocument](./funtions/README.md)を参照。
+
+
+
+以下、start kitの使い方
 
 ## Instruction
 

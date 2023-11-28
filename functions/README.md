@@ -33,7 +33,9 @@ firebase deploy --only functions --project=default
 # tests
 
 実際に動かすのは、FirebaseのFirestore, Functionsが必要となり、開発時に環境設定が煩雑になる。
+
 各それぞれの機能を関数にして、Firebaseに依存しない形でlocalで開発可能としている。
+
 以下のスクリプトで、単体の動作が可能となる。
 
 論文を検索するスクリプト

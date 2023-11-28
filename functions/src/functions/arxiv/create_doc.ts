@@ -1,7 +1,7 @@
 import { EventContext } from "firebase-functions";
 import * as firebase from "firebase-admin";
-import OpenAI from "openai";
-import { ChatCompletionMessageParam } from "openai/resources/chat";
+import { call_slashgpt } from "../../lib/gpt";
+
 
 export const createPaperEvent = async (
   db: firebase.firestore.Firestore,
@@ -15,7 +15,7 @@ export const createPaperEvent = async (
     return;
   }
   console.log("data")
-  const summary_data = await call_llm(db, data);
+  const summary_data = await call_llm(data);
   if (!summary_data) {
     console.log("no summary")
     return;
@@ -41,6 +41,71 @@ export const createPaperEvent = async (
   console.log("push")
 
   return;
+};
+
+
+export const call_llm = async (
+  data: firebase.firestore.DocumentData,
+) => {
+  const text = `title: ${data.title}\nbody: ${data.summary}"`;
+
+  const res = await call_slashgpt(text);
+  if (res.result) {
+    return res.function_result;
+  }    
+  return null;
+};
+
+
+export const pushSlask = async (message: string) => {
+  const token = process.env.SLACKTOKEN || "";
+  const channel = process.env.SLACKCHANNEL || "";
+
+  const form = new FormData();
+  form.append("token", token);
+  form.append("channel", channel);
+  form.append("username", "Bot");
+  form.append("text", message);
+  form.append("unfurl_links", "false");
+  form.append("icon_emoji", ":robot:");
+
+  try {
+    const res = await fetch("https://slack.com/api/chat.postMessage", {
+      method: "POST",
+      body: form as any,
+    });
+
+    return res.text();
+  } catch (e) {
+    console.log(e);
+  }
+  return;
+};
+
+
+/*
+// import OpenAI from "openai";
+// import { ChatCompletionMessageParam } from "openai/resources/chat";
+
+export const gpt = async (text: string) => {
+
+  const openai = new OpenAI();
+
+  const messages = [
+    { role: "system", content: prompt },
+    { role: "user", content: text },
+  ] as ChatCompletionMessageParam[];
+  const chatCompletion = await openai.chat.completions.create({
+    messages,
+    model: "gpt-3.5-turbo",
+    functions,
+  });
+  const res = chatCompletion["choices"][0];
+  if (res && res?.message?.function_call?.arguments) {
+    const dict = JSON.parse(res?.message?.function_call?.arguments);
+    return dict;
+  }
+  return null;
 };
 
 const prompt = [
@@ -88,57 +153,4 @@ const functions = [
   },
 ];
 
-export const call_llm = async (
-  db: firebase.firestore.Firestore,
-  data: firebase.firestore.DocumentData,
-//  paperId: string,
-) => {
-  const text = `title: ${data.title}\nbody: ${data.summary}"`;
-
-  return await gpt(text);
-};
-
-const gpt = async (text: string) => {
-  const openai = new OpenAI();
-
-  const messages = [
-    { role: "system", content: prompt },
-    { role: "user", content: text },
-  ] as ChatCompletionMessageParam[];
-  const chatCompletion = await openai.chat.completions.create({
-    messages,
-    model: "gpt-3.5-turbo",
-    functions,
-  });
-  const res = chatCompletion["choices"][0];
-  if (res && res?.message?.function_call?.arguments) {
-    const dict = JSON.parse(res?.message?.function_call?.arguments);
-    return dict;
-  }
-  return null;
-};
-
-export const pushSlask = async (message: string) => {
-  const token = process.env.SLACKTOKEN || "";
-  const channel = process.env.SLACKCHANNEL || "";
-
-  const form = new FormData();
-  form.append("token", token);
-  form.append("channel", channel);
-  form.append("username", "Bot");
-  form.append("text", message);
-  form.append("unfurl_links", "false");
-  form.append("icon_emoji", ":robot:");
-
-  try {
-    const res = await fetch("https://slack.com/api/chat.postMessage", {
-      method: "POST",
-      body: form as any,
-    });
-
-    return res.text();
-  } catch (e) {
-    console.log(e);
-  }
-  return;
-};
+*/

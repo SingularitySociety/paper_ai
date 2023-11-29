@@ -44,11 +44,17 @@ firebase deploy --only functions --project=default
  npx ts-node tests/arxiv.ts
 ```
 
-GPTに要約させるスクリプト
+### GPTに要約させるスクリプト
 
 ```
-T.B.D.
+ OPENAI_API_KEY=xxxx npx ts-node tests/gpt.ts
 ```
+
+- tests/sample.tsのarXivのapiレスポンスのデータを読み込みLLMに問い合わせる
+- 中ではSlashGPTを使っている
+  - プロンプトなどを変更する場合は、slashgpt/manifests/main/paper.yml を編集
+  - SlashGPTを使っているので、SlashGPTのみでpaper.ymlの動作検証可能
+  - sample.tsを差し替えて別の論文でも検証可能
 
 Slackに投稿するデータを変換するスクリプト
 

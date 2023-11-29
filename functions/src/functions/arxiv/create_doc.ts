@@ -1,7 +1,7 @@
 import { EventContext } from "firebase-functions";
 import * as firebase from "firebase-admin";
 import { call_slashgpt } from "../../lib/gpt";
-
+import { formatPushMessage } from "../../lib/utils";
 
 export const createPaperEvent = async (
   db: firebase.firestore.Firestore,
@@ -11,51 +11,38 @@ export const createPaperEvent = async (
   const data = snap.data();
   const { paperId } = context.params;
   if (!data) {
-    console.log("no data")
+    console.log("no data");
     return;
   }
-  console.log("data")
+  console.log("data");
   const summary_data = await call_llm(data);
   if (!summary_data) {
-    console.log("no summary")
+    console.log("no summary");
     return;
   }
-  console.log("summary")
+  console.log("summary");
   await db.doc(`summaries/${paperId}`).set({
     summary: summary_data,
     id: data.id,
     title: data.title,
   });
-  console.log("write")
-  await pushSlask(
-    JSON.stringify(
-      {
-        summary: summary_data,
-        id: data.id,
-        title: data.title,
-      },
-      null,
-      2,
-    ),
-  );
-  console.log("push")
+  console.log("write");
+  const message = formatPushMessage(summary_data, data);
+  await pushSlask(message);
+  console.log("push");
 
   return;
 };
 
-
-export const call_llm = async (
-  data: firebase.firestore.DocumentData,
-) => {
+export const call_llm = async (data: firebase.firestore.DocumentData) => {
   const text = `title: ${data.title}\nbody: ${data.summary}"`;
 
   const res = await call_slashgpt(text);
   if (res.result) {
     return res.function_result;
-  }    
+  }
   return null;
 };
-
 
 export const pushSlask = async (message: string) => {
   const token = process.env.SLACKTOKEN || "";
@@ -81,7 +68,6 @@ export const pushSlask = async (message: string) => {
   }
   return;
 };
-
 
 /*
 // import OpenAI from "openai";

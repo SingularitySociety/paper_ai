@@ -15,7 +15,6 @@ if (!admin.apps.length) {
   admin.initializeApp();
 }
 
-
 // exportIfNeeded("test", "tests/test", exports);
 
 exportIfNeeded("arxiv_create_doc", "arxiv/create_doc", exports);

@@ -7,7 +7,7 @@ import { ChatSession, ChatConfig, ChatData } from "slashgpt";
 const base_path = path.resolve(__dirname + "/../../slashgpt/");
 
 const get_chat_session = () => {
-  const manifest_file_name =  base_path + "/manifests/main/paper.yml"; 
+  const manifest_file_name = base_path + "/manifests/main/paper.yml";
   const manifest_file = fs.readFileSync(manifest_file_name, "utf8");
   const manifest = YAML.parse(manifest_file);
   const config = new ChatConfig(base_path);
@@ -29,7 +29,14 @@ export type LLMSummary = {
 
 export const call_slashgpt = async (
   message: string,
-): Promise<{ result: true; function_result: LLMSummary } | { result: false; last_message?: ChatData; error?: { code: string; message: string } }> => {
+): Promise<
+  | { result: true; function_result: LLMSummary }
+  | {
+      result: false;
+      last_message?: ChatData;
+      error?: { code: string; message: string };
+    }
+> => {
   const session = get_chat_session();
   session.append_user_question(message);
   try {
@@ -43,6 +50,8 @@ export const call_slashgpt = async (
   if (!last_message || !last_message.function_data) {
     return { result: false, last_message };
   }
-  return { result: true, function_result: last_message.function_data.call_arguments };
-
+  return {
+    result: true,
+    function_result: last_message.function_data.call_arguments,
+  };
 };

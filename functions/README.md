@@ -38,7 +38,7 @@ firebase deploy --only functions --project=default
 
 以下のスクリプトで、単体の動作が可能となる。
 
-論文を検索するスクリプト
+### 論文を検索するスクリプト
 
 ```
  npx ts-node tests/arxiv.ts
@@ -50,13 +50,15 @@ firebase deploy --only functions --project=default
  OPENAI_API_KEY=xxxx npx ts-node tests/gpt.ts
 ```
 
+- OPENAIのapi keyが必要。
+  - このkeyはレポジトリには絶対に登録しないこと。
 - tests/sample.tsのarXivのapiレスポンスのデータを読み込みLLMに問い合わせる
 - 中ではSlashGPTを使っている
   - プロンプトなどを変更する場合は、slashgpt/manifests/main/paper.yml を編集
   - SlashGPTを使っているので、SlashGPTのみでpaper.ymlの動作検証可能
   - sample.tsを差し替えて別の論文でも検証可能
 
-Slackに投稿するデータを変換するスクリプト
+### Slackに投稿するデータを変換するスクリプト
 
 ```
 T.B.D.

@@ -60,8 +60,12 @@ firebase deploy --only functions --project=default
 
 ### Slackに投稿するデータを変換するスクリプト
 
+- データベースのデータ(arXivの返却値)とLLMのレスポンスから、Slackへの投稿メッセージに変換する関数
+- 投稿時の変換をテストして、投稿メッセージを変えることができる
+- LLMのレスポンスが変わった場合（function calling)、こちらのテストデータも変更する必要あり。
+
 ```
-T.B.D.
+ npx ts-node tests/format_data.ts
 ```
 
 # TODO

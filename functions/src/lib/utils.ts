@@ -21,13 +21,14 @@ export const formatPushMessage = (
   summary_data: LLMSummary,
   data: firebase.firestore.DocumentData,
 ) => {
-  return JSON.stringify(
-    {
-      summary: summary_data,
-      id: data.id,
-      title: data.title,
-    },
-    null,
-    2,
-  );
+  const { title, keywords, issues, methods, results } = summary_data;
+  return [
+    `url: ${data.id}`,
+    `title: ${data.title}`,
+    `内容: ${title}`,
+    `キーワード: ${keywords}`,
+    `問題点: ${issues}`,
+    `手法: ${methods}`,
+    `結果: ${results}`,
+  ].join("\n");
 };

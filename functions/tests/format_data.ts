@@ -1,9 +1,9 @@
 import * as firebase from "firebase-admin";
-import { LLMSummary } from "../src/lib/gpt";
 import { formatPushMessage } from "../src/lib/utils";
 
+import { summary_data } from "./llm_data";
+
 const main = () => {
-  const summary_data = {} as LLMSummary;
   const data = {
     id: "123",
     title: "111",

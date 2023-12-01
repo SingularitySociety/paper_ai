@@ -27,8 +27,8 @@ export const formatPushMessage = (
     `title: ${data.title}`,
     `内容: ${title}`,
     `キーワード: ${keywords}`,
-    `問題点: ${issues}`,
-    `手法: ${methods}`,
-    `結果: ${results}`,
+    `問題点📚 ${issues}`,
+    `手法🛠️ ${methods}`,
+    `結果🌟 ${results}`,
   ].join("\n");
 };

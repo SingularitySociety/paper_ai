@@ -5,8 +5,8 @@ import { summary_data } from "./llm_data";
 
 const main = () => {
   const data = {
-    id: "123",
-    title: "111",
+    id: "url",
+    title: "論文タイトル\naa\naaa",
   } as firebase.firestore.DocumentData;
   
   const message = formatPushMessage(summary_data, data);

@@ -22,13 +22,18 @@ export const formatPushMessage = (
   data: firebase.firestore.DocumentData,
 ) => {
   const { title, keywords, issues, methods, results } = summary_data;
+  const base_title = data.title.replaceAll("\n", "");
   return [
-    `url: ${data.id}`,
-    `title: ${data.title}`,
-    `内容: ${title}`,
-    `キーワード: ${keywords}`,
-    `問題点📚 ${issues}`,
-    `手法🛠️ ${methods}`,
-    `結果🌟 ${results}`,
+    "------------------",
+    `${base_title} (${data.id})`,
+    "------------------",
+    '',
+    [
+      `📚内容: ${title}`,
+      `🔑キーワード: ${keywords}`,
+      `❓問題点: ${issues}`,
+      `⚒️手法:️ ${methods}`,
+      `⭐結果: ${results}`,
+    ].join("\n\n")
   ].join("\n");
 };

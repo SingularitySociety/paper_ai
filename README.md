@@ -1,5 +1,7 @@
 # Paper AI
 
+- Paper AIはarXivを定期的に検索し、見つかった論文のabstractを要約しSlackへ投稿するAIボットです。
+
 - document
   - https://docs.google.com/document/d/1NLoFBWl9KNstQJ7RQEH5sCYhRgd5JUgwMIvv3UoJtMY/edit#heading=h.qxxweqvfyfil
 

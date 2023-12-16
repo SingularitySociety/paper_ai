@@ -1,5 +1,5 @@
 import * as firebase from "firebase-admin";
-import search from "arXiv-api";
+import search from "arXiv-api-ts";
 import { LLMSummary } from "./gpt";
 
 export const search_arxiv_papers = async () => {
